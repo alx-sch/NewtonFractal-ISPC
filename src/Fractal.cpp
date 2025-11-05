@@ -130,7 +130,7 @@ void	Fractal::saveImage(const std::string& filename) const
 				"  real axis (x): [" << x_min_ << ", " << x_max_ << "]" << std::endl;
 	std::cout	<< std::fixed << std::setprecision(2) <<
 				"  imag axis (y): [" << y_min_ << ", " << y_max_ << "]" << std::endl;
-	std::cout	<< "\nUse 'make png' to convert the .ppm file to .png format."
+	std::cout	<< "\nUse '" << YELLOW << "make png" << RESET << "' to convert the .ppm file to .png format."
 				<< std::endl;
 }
 

@@ -5,5 +5,5 @@
 	"image": "mcr.microsoft.com/devcontainers/cpp:1-ubuntu-22.04",
 
 	// Give instructions for building the project after the container is created
-	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y make g++ valgrind imagemagick && echo 'Container setup complete. Run \"make\" to build.'"
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y make g++ valgrind imagemagick"
 }

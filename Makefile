@@ -64,7 +64,7 @@ png:	$(PNG_FILES)
 	@echo "$(BOLD)All PPM files converted to PNG.$(RESET)"
 
 $(OUT_DIR)/%.png: $(OUT_DIR)/%.ppm
-	@echo "$(YELLOW)Converting$(RESET) $< to $@..."
+	@echo "Converting '$(YELLOW)$<${RESET}' to '$(YELLOW)$@${RESET}'..."
 	@convert $< $@
 
 ## Debug build; logs extra info ##
