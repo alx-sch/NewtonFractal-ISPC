@@ -1,8 +1,8 @@
-#include "../include/Fractal.hpp"
-#include "../include/defines.hpp"	// DEBUG_PRINT, Default values
+#include "Fractal.hpp"
+#include "defines.hpp"	// DEBUG_PRINT, Default values
 
 #include <iostream>
-#include <cmath>		// For M_PI, cos, sin
+#include <cmath>		// For M_PI, cos, sin, std::pow (brightness calculation)
 #include <iomanip>		// Formatte output debug prints
 #include <fstream>		// For file output
 #include <stdexcept>	// For std::runtime_error
@@ -53,8 +53,7 @@ void	Fractal::generate()
 		for (int x = 0; x < width_; ++x)
 		{
 			// -- MAP --
-			// Convert the pixel (x, y) to a complex number z_start within
-			// the viewport
+			// Convert the pixel (x, y) to a complex number z_start within the viewport
 			
 			// x (real part) scales from [0, width_-1] to [x_min_, x_max_]
 			double	real = x_min_ + (static_cast<double>(x) / (width_ - 1)) * (x_max_ - x_min_);
@@ -70,6 +69,7 @@ void	Fractal::generate()
 			// -- COLOR --
 			Color	pixel_color = calculateColor(solution.first, solution.second);
 
+			// Debug logging for some pixels
 			if (x % DEBUG_PIXEL_INTERVAL == 0 && y % DEBUG_PIXEL_INTERVAL == 0)
 			{
 				DEBUG_PRINT("  Color: ("
@@ -77,8 +77,8 @@ void	Fractal::generate()
 							<< static_cast<int>(pixel_color.g) << ", "
 							<< static_cast<int>(pixel_color.b) << ")\n");
 			}
-			// -- STORE --
-			// Save color in 1D pixel vector
+
+			// --- STORE --- Save color in 1D pixel vector
 			pixel_data_[y * width_ + x] = pixel_color;
 		}
 	}
@@ -89,11 +89,9 @@ void	Fractal::generate()
 ///////////////
 
 /**
- @brief Saves the generated fractal image to a  `.ppm` file.
+ @brief Saves the generated fractal data to a `.ppm` file.
 
  @param filename	The name of the output file.
- @return			`true` if the file was saved successfully,
- 					`false` otherwise.
 */
 void	Fractal::saveImage(const std::string& filename) const
 {
@@ -105,8 +103,8 @@ void	Fractal::saveImage(const std::string& filename) const
 	}
 
 	// Write the PPM Header. This tells the image viewer
-	//  it's a text-based (P3) RGB image, of width/heigh dimensions,
-	//  with max color value of 255.
+	// it's a text-based (P3) RGB image, of width/height dimensions,
+	// with max color value of 255.
 	outFile << "P3\n";
 	outFile << width_ << " " << height_ << "\n";
 	outFile << "255\n";
@@ -122,6 +120,18 @@ void	Fractal::saveImage(const std::string& filename) const
 
 	outFile.close();
 
+	// Print summary to console
+	std::cout	<< BOLD << "Fractal image saved to '" << YELLOW << filename
+				<< RESET << BOLD << "'"
+				<< RESET << std::endl;
+	std::cout	<< "  image size: " << width_ << " x " << height_ << std::endl;
+	std::cout	<< "  fractal order (n): " << n_ << std::endl;
+	std::cout	<< std::fixed << std::setprecision(2) <<
+				"  real axis (x): [" << x_min_ << ", " << x_max_ << "]" << std::endl;
+	std::cout	<< std::fixed << std::setprecision(2) <<
+				"  imag axis (y): [" << y_min_ << ", " << y_max_ << "]" << std::endl;
+	std::cout	<< "\nUse 'make png' to convert the .ppm file to .png format."
+				<< std::endl;
 }
 
 ///////////////////////////////
@@ -131,10 +141,8 @@ void	Fractal::saveImage(const std::string& filename) const
 /**
  @brief Calculates all `n` solutions to `z^n = 1` and adds them to the `roots_` vector.
 
- This function solves `z^n = 1` by finding the `n` complex roots
- using the formula:
+ This function solves `z^n = 1` by finding the `n` complex roots using the formula:
  `r_k = cos(2*pi*k/n) + i*sin(2*pi*k/n)`
- for `k = 0` to `n-1`.
 */
 void	Fractal::calculateRoots()
 {
@@ -156,7 +164,7 @@ void	Fractal::calculateRoots()
  @brief Populates the `palette_` vector with `n` base colors.
 
  This assigns a color to each of the `n` roots for visualization.
- It used a pre-defined set of distinct colors and will repeat (wrap around)
+ It used a pre-defined set of ten distinct colors and will repeat (wrap around)
  if `n` is larger that the number of available colors.
 */
 void	Fractal::setupPalette()
@@ -187,7 +195,8 @@ void	Fractal::setupPalette()
 	}
 
 	DEBUG_PRINT("--- Palette Setup ---");
-	DEBUG_PRINT("  Created a palette with " << palette_.size() << " colors (distinct: "
+	DEBUG_PRINT("  Created a palette with " << palette_.size()
+				<< " colors (distinct: "
 				<< (static_cast<int>(master_palette.size()) < n_ ?
 					master_palette.size() : n_)
 				<< ")\n");
@@ -214,6 +223,7 @@ bool	Fractal::newtonStep(Complex& z)
 	Complex	f_z = std::pow(z, n_) - Complex(1, 0); // f(z) = z^n - 1
 	Complex	f_prime_z = static_cast<double>(n_) * std::pow(z, n_ - 1); // f'(z) = n*z^(n-1)
 
+	// Checking '== 0.0' is tricky with floating-point numbers
 	if (std::abs(f_prime_z) < EPSILON)
 		return false; // Avoid division by zero
 
@@ -227,23 +237,23 @@ bool	Fractal::newtonStep(Complex& z)
 
  This function applies Newton's method iteratively starting from `z_start`
  until convergence to one of the known roots or until the maximum number
- of iterations is reached.
+ of iterations is reached or a division by zero occurs.
 
  @param z_start	The initial complex number to start the iteration from.
  @param x		The x-coordinate of the pixel (column).
  @param y		The y-coordinate of the pixel (row).
 
- @return A pair where the first element is the index of the converged root
-		 (or -1 if no convergence) and the second element is the number of
-		 iterations taken.
+ @return	A pair where the first element is the index of the converged root
+			(or -1 if no convergence) and the second element is the number of
+			iterations taken.
 */
 std::pair<int, int>	Fractal::solvePixel(Complex z_start, int x, int y)
 {
 	Complex	z = z_start;
 
 	// Only log one pixel every N rows/cols
-	bool	log_this_pixel = (x % DEBUG_PIXEL_INTERVAL == 0 &&
-							y % DEBUG_PIXEL_INTERVAL == 0);
+	bool	log_this_pixel = (x % DEBUG_PIXEL_INTERVAL == 0
+							&& y % DEBUG_PIXEL_INTERVAL == 0);
 
 	if (log_this_pixel)
 		DEBUG_PRINT("--- Solving Pixel (" << x << ", " << y << ") ---");
@@ -297,12 +307,15 @@ Color	Fractal::calculateColor(int root_index, int iterations) const
 	if (root_index == -1)
 		return {0, 0, 0};
 
-	// Get base color (wrap around if root_index exceeds palette size)
-	Color	base_color = palette_[root_index % palette_.size()];
+	// Get base color
+	Color	base_color = palette_[root_index];
 
 	// Calculate brightness factor (more iterations -> darker color)
 	// 0 iterations: 100% bright (1.0); max_iterations_: 0% bright (0.0)
-	double	brightness = 1.0 - static_cast<double>(iterations) / max_iterations_;
+	double	linear_brightness = 1.0 - static_cast<double>(iterations) / max_iterations_;
+
+	// Spice it up with gamma correction for better visual contrast
+	double	brightness = std::pow(linear_brightness, GAMMA);
 
 	// Apply shading to base color
 	// Multiply each color component by brightness factor

@@ -1,7 +1,7 @@
 #ifndef NEWTON_FRACTAL_HPP
 # define NEWTON_FRACTAL_HPP
 
-# include "../include/defines.hpp"	// For Color struct
+# include "defines.hpp"	// For Color struct
 # include <vector>
 # include <complex>
 # include <string>

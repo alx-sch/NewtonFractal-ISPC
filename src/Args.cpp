@@ -1,23 +1,16 @@
-#include "../include/Args.hpp"
-#include "../include/defines.hpp"	// color codes
+#include "Args.hpp"
+#include "defines.hpp"	// color codes
 
 #include <iostream>
 #include <stdexcept>	// For std::invalid_argument
 #include <cctype>		// For std::isdigit
 #include <string>		// For std::stoi
+#include <cmath>		// For std::abs
 
-// Default constructor, object needs to be initialized later via `parse()`.
-Args::Args()
-	: n(0), width(0), height(0)
-{}
-
-// Parses command-line arguments and populates member variables
-void Args::parse(int argc, char** argv)
+// Constructor takes command-line arguments and initializes member variables.	
+Args::Args(int argc, char** argv)
+	: n(0), width(DEF_WIDTH), height(DEF_HEIGHT)
 {
-	// Set defaults
-	width = DEF_WIDTH;
-	height = DEF_HEIGHT;
-
 	// Check 'n'
 	if (argc < 2)
 		throw std::invalid_argument("Error: Missing required argument <n>");
@@ -26,8 +19,17 @@ void Args::parse(int argc, char** argv)
 		throw std::invalid_argument("Error: <n> must be a valid integer");
 
 	n = std::stoi(argv[1]);
-	if (n == 0 || n == 1 || n == -1)
-		throw std::invalid_argument("Error: <n> must not be 0, 1 or -1 to create a fractal");
+	n = std::abs(n); // Use absolute value of n, as z^-n = 1 is same as z^n = 1
+	if (n == 0)
+		throw std::invalid_argument("Error: <n> must not be 0. No derivative exists.");
+
+	if (n < 3) // OK but boring (no fractals)
+	{
+		std::cerr	<< YELLOW << BOLD << "Warning: Low degree polynomial (n="
+					<< n << ")." << RESET <<std::endl;
+		std::cerr	<< YELLOW << "         Results will be non-fractal (straight lines/monochrome). Use n >= 3 for chaos."
+					<< RESET << std::endl;
+	}
 
 	// Check for optional 'width'
 	if (argc >= 3)
@@ -36,7 +38,7 @@ void Args::parse(int argc, char** argv)
 			throw std::invalid_argument("Error: [width] must be a valid integer");
 		width = std::stoi(argv[2]);
 		if (width <= 0)
-			throw std::invalid_argument("Error: [width] must be a positive number");
+			throw std::invalid_argument("Error: [width] must be a positive integer");
 	}
 
 	// Check for optional 'height'
@@ -49,7 +51,7 @@ void Args::parse(int argc, char** argv)
 		height = std::stoi(argv[3]);
 		if (height <= 0)
 		{
-			throw std::invalid_argument("Error: [height] must be a positive number");
+			throw std::invalid_argument("Error: [height] must be a positive integer");
 		}
 	}
 }
@@ -58,7 +60,7 @@ void Args::parse(int argc, char** argv)
 void	Args::printUsage(const char* progName)
 {
 	std::cout	<< BOLD << YELLOW << "Usage: " << progName << " <n> [width] [height]" << RESET << std::endl;
-	std::cout	<< "  <n>      : Degree of the polynomial (integer, not 0, 1 or -1)" << std::endl;
+	std::cout	<< "  <n>      : Degree of the polynomial (integer != 0)" << std::endl;
 	std::cout	<< "  [width]  : Width of the output image (optional, positive integer, default: "
 				<< DEF_WIDTH << ")" << std::endl;
 	std::cout	<< "  [height] : Height of the output image (optional, positive integer, default: "

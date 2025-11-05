@@ -13,17 +13,16 @@ class Args
 {
 	public:
 
-		Args();
+		Args(int argc, char** argv);
 
 		int			n;
 		int			width;
 		int			height;
 
-		void		parse(int argc, char** argv);
 		static void	printUsage(const char* progName);
 
 	private:
-		static bool	isInteger(const std::string& str);
+		bool	isInteger(const std::string& str);
 };
 
 #endif
