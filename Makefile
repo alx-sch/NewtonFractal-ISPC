@@ -35,7 +35,7 @@ all:	$(NAME)
 $(NAME):	$(OBJS)
 	@echo "$(YELLOW)Linking...$(RESET)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(YELLOW)\n$(NAME)$(RESET) successfully compiled."
+	@echo "$(YELLOW)$(BOLD)\n$(NAME)$(RESET) successfully compiled."
 	@echo "$(BOLD)$(YELLOW)\nUsage:$(RESET)$(BOLD) ./$(NAME) <n> [width] [height]$(RESET)"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp | $(OBJS_DIR)
