@@ -1,4 +1,5 @@
 #include "../include/Fractal.hpp"
+#include "../include/defines.hpp"	// DEBUG_PRINT
 
 #include <iostream>
 
@@ -20,14 +21,14 @@ void	Fractal::calculateRoots(int n)
 {
 	roots_.clear(); // Clear vector from previous calculations
 
-	std::cout << "--- Calculating " << n << " Roots ---" << std::endl;
+	DEBUG_PRINT("--- Calculating " << n << " Roots ---");
 
 	for (int k = 0; k < n; ++k)
 	{
 		double					theta = 2 * M_PI * static_cast<double>(k) / n;
 		std::complex<double>	root(cos(theta), sin(theta));
-		std::cout << "Root " << k << ": " << root << std::endl;
+		DEBUG_PRINT("Root " << k << ": " << root);
 		roots_.push_back(root);
 	}
-	std::cout << "---------------------------" << std::endl;
+	DEBUG_PRINT("---------------------------");
 }
