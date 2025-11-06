@@ -81,7 +81,7 @@ Follow these steps to install the required tools and the ISPC compiler:
 
 If you plan on contributing or modifying the ISPC kernel code, please consider installing the official **Intel® ISPC** extension for your editor (e.g., VS Code). Doing so makes `.ispc` code readable via syntax highlighting and makes debugging easier thanks to real-time file validation and error reporting.
 
-**Mono Runtime:** If you are using Linux or macOS, the advanced features of the editor extension may require the **Mono Runtime** to be installed<sup><a href="#footnote1">[1]</a></sup>. This is separate from running the core `ispc` compiler, which should work immediately after Step 2.
+**Mono Runtime:** If you are using Linux or macOS, the advanced features of the editor extension may require the Mono Runtime to be installed<sup><a href="#footnote1">[1]</a></sup>. This is separate from running the core `ispc` compiler, which should work immediately after Step 2.
 
 **➡️ DevContainer Users:** The ISPC extension and Mono Runtime are preinstalled in the Codespace environment.
 
