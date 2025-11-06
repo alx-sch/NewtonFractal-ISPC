@@ -7,6 +7,16 @@ This project generates a visualization of the **Newton Fractal** for the equatio
 | :---: | :---: | :---: |
 | <img src="https://raw.githubusercontent.com/alx-sch/NewtonFractal-ISPC/refs/heads/main/.assets/fractal_5n.png" width="95%" alt="Newton Fractal n=5"> | <img src="https://raw.githubusercontent.com/alx-sch/NewtonFractal-ISPC/refs/heads/main/.assets/fractal_8n.png" width="95%" alt="Newton Fractal n=8"> | <img src="https://raw.githubusercontent.com/alx-sch/NewtonFractal-ISPC/refs/heads/main/.assets/fractal_13n.png" width="95%" alt="Newton Fractal n=13"> |
 
+---
+
+## TOC
+
+- [Getting Started](#getting-started)
+     - [Prerequisites and Setup](#prerequisites-and-setup)
+     - [Building the Project](#building-the-project)
+     - [Configuration Constants](#configuration-constants)
+- [Calculating the Newton Fractal](#calculating-the-newton-fractal)
+
 --- 
 
 ## Getting Started
@@ -104,9 +114,9 @@ In addition to the default `make` command, the provided `Makefile` includes othe
 
 --- 
 
-### Configuration Constants (`define.hpp`)
+### Configuration Constants
 
-This central header file acts as the primary configuration point for the visualization. By modifying the constants within this file, users can **tweak the visual outcome of the fractal**.
+The header file `define.hpp` acts as the primary configuration point for the visualization. By modifying the constants within this file, users can **tweak the visual outcome of the fractal**.
 
 Key parameters defined here include:
 
