@@ -224,7 +224,10 @@ This $\approx 8.3 \text{ s}$ represents the **total workload** (the time it take
 
 #### ISPC Parallelization and Speedup
 
-When the ISPC kernel utilizes all available cores, the total workload ($\approx 8.3 \text{ s}$) is distributed across them.
+The program achieves parallel speedup through two layers:
+
+- **Multi-threading** (managed by the ISPC runtime) to utilize all available CPU cores.
+- **SIMD vectorization** to accelerate computation within each core.
 
 You can check the number of available cores using the `nproc` command (on Ubuntu). Since this example runs inside a GitHub Codespace container, only two physical CPUs are available,
 while a real machine typically provides 4 or 8 cores.
