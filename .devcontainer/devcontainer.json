@@ -4,6 +4,6 @@
 	// Ubuntu with C++ tools
 	"image": "mcr.microsoft.com/devcontainers/cpp:1-ubuntu-22.04",
 
-	// Give instructions for building the project after the container is created
-	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y make g++ valgrind imagemagick"
+	// Install dependencies for building, debugging, file conversion, ISPC
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y make g++ valgrind imagemagick wget tar && wget https://github.com/ispc/ispc/releases/download/v1.21.0/ispc-v1.21.0-linux.tar.gz && tar -xzf ispc-v1.21.0-linux.tar.gz && sudo mv ispc-v1.21.0-linux/bin/ispc /usr/local/bin/ && rm -rf ispc-v1.21.0-linux*"
 }
