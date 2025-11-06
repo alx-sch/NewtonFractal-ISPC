@@ -61,7 +61,7 @@ Follow these steps to install the required tools and the ISPC compiler:
     rm -rf ispc-v1.21.0-linux*
     ```
 
-3. **Final Verification Check:**
+3. **Final Verification Check:**     
    After installation, use the following commands to ensure all prerequisites are available and correctly linked in your environment:
 
    ```bash
