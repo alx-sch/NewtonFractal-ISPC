@@ -1,5 +1,6 @@
 #include "Fractal.hpp"
-#include "defines.hpp"	// DEBUG_PRINT, Default values
+#include "defines.hpp"		// DEBUG_PRINT, Default values
+#include "complexMath.hpp"	// For Complex operations
 
 #include <iostream>
 #include <cmath>		// For M_PI, cos, sin, std::pow (brightness calculation)
@@ -153,7 +154,7 @@ void	Fractal::calculateRoots()
 	for (int k = 0; k < n_; ++k)
 	{
 		double	theta = 2 * M_PI * static_cast<double>(k) / n_;
-		Complex	root(cos(theta), sin(theta));
+		Complex	root = { cos(theta), sin(theta) };
 		DEBUG_PRINT("  Root " << k << ": " << root);
 		roots_.push_back(root);
 	}
@@ -223,14 +224,16 @@ void	Fractal::setupPalette()
 */
 bool	Fractal::newtonStep(Complex& z)
 {
-	Complex	f_z = std::pow(z, n_) - Complex(1, 0); // f(z) = z^n - 1
-	Complex	f_prime_z = static_cast<double>(n_) * std::pow(z, n_ - 1); // f'(z) = n*z^(n-1)
+	Complex	f_z = complexSub(complexPow(z, n_), Complex{1, 0}); // f(z) = z^n - 1
+	Complex	z_n_minus_1 = complexPow(z, n_ - 1);
+	Complex	n_complex = {static_cast<double>(n_), 0.0};
+	Complex	f_prime_z = complexMul(n_complex, z_n_minus_1); // f'(z) = n*z^(n-1)
 
 	// Checking '== 0.0' is tricky with floating-point numbers
-	if (std::abs(f_prime_z) < EPSILON)
+	if (complexAbs(f_prime_z) < EPSILON)
 		return false; // Avoid division by zero
 
-	z = z - f_z / f_prime_z; // Newton's method step -> get z_{k+1} from z_k
+	z = complexSub(z, complexDiv(f_z, f_prime_z)); // Newton's method step -> get z_{k+1} from z_k
 	return true;
 }
 
@@ -271,7 +274,7 @@ std::pair<int, int>	Fractal::solvePixel(Complex z_start, int x, int y)
 		for (int k = 0; k < n_; ++k)
 		{
 			// If distance between between z and root is less than tolerance, we have converged (root found!)
-			if (std::abs(z - roots_[k]) < tolerance_)
+			if (complexAbs(complexSub(z, roots_[k])) < tolerance_)
 			{
 				if (log_this_pixel)
 					DEBUG_PRINT("  Converged to root " << k << " in " << iter << " iterations");
