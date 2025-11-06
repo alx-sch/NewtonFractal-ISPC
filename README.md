@@ -218,9 +218,9 @@ The initial serial (single-threaded) execution of the fractal generator provides
 
 | Command | Real Time (Wall Clock) | User Time (Total CPU Work) |
 | :--- | :--- | :--- |
-| `time ./newton_fractal 12` | $\approx 8.3 \text{ s}$ | $\approx 8.4 \text{ s}$ |
+| `time ./newton_fractal 12` | $\approx 8.4 \text{ s}$ | $\approx 8.4 \text{ s}$ |
 
-This $\approx 8.3 \text{ s}$ represents the **total workload** (the time it takes a single core to complete the computation).
+This $\approx 8.4 \text{ s}$ represents the **total workload** (the time it takes a single core to complete the computation).
 
 #### ISPC Parallelization and Speedup
 
