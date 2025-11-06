@@ -100,6 +100,8 @@ The resulting executable (`newton_fractal`) accepts the degree of the polynomial
 ./newton_fractal 8 1024 768
 ```
 
+The resulting fractal image (`.ppm`) is saved in the `out` folder.
+
 #### Additional Make Targets
 
 In addition to the default `make` command, the provided `Makefile` includes other useful convenience targets:
