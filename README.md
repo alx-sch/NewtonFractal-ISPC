@@ -16,6 +16,9 @@ This project generates a visualization of the **Newton Fractal** for the equatio
      - [Building the Project](#building-the-project)
      - [Configuration Constants](#configuration-constants)
 - [Calculating the Newton Fractal](#calculating-the-newton-fractal)
+- [Parallelization using ISPC](#parallelization-using-ispc)
+     - [Performance and Benchmarking](#performance-and-benchmarking)
+     - [SIMD & ISCP](#simd--iscp)
 
 --- 
 
@@ -194,10 +197,42 @@ The **root index** ($i$) to which the iteration converges, together with the num
 
 ---
 
-## Intel ISPC
+## Parallelization using ISPC
+
+### Performance and Benchmarking
+
+A primary goal of this project is to demonstrate the speedup gained by using ISPC for parallel computation. Performance is benchmarked using the shell's built-in `time` command to measure the execution time:
+
+```bash
+time ./newton_fractal 12
+
+# time output
+real    0m8.422s
+user    0m8.391s
+sys     0m0.012s
+```
+
+#### Baseline (Serial) Execution
+
+The initial serial (single-threaded) execution of the fractal generator provides the baseline for total computational work. We observe that the `user` time (total CPU time spent) closely matches the `real` time (wall clock time), confirming single-core execution.
+
+| Command | Real Time (Wall Clock) | User Time (Total CPU Work) |
+| :--- | :--- | :--- |
+| `time ./newton_fractal 12` | $\approx 8.3 \text{ s}$ | $\approx 8.4 \text{ s}$ |
+
+This $\approx 8.3 \text{ s}$ represents the **total workload** (the time it takes a single core to complete the computation).
+
+#### ISPC Parallelization and Speedup
+
+When the ISPC kernel utilizes all available cores, the total workload ($\approx 8.3 \text{ s}$) is distributed across them.
+
+You can check the number of available cores using the `nproc` command (on Ubuntu). Since this example runs inside a GitHub Codespace container, only two physical CPUs are available,
+while a real machine typically provides 4 or 8 cores.
 
 --- 
+### SIMD & ISCP
 
+---
 ## References
 
 <a name="footnote1">[1]</a> Sanderson, G. (3Blue1Brown); YouTube (Oct 12, 2021). [*Newton’s fractal (which Newton knew nothing about)*](https://www.youtube.com/watch?v=-RdOwhmqP5s)  
