@@ -21,7 +21,6 @@ CXX :=			c++
 CXXFLAGS +=		-Werror -Wextra -Wall
 CXXFLAGS +=		-std=c++17
 CXXFLAGS +=		-MMD -MP	# For dependency files
-CXXFLAGS +=		-Wpedantic
 CXXFLAGS +=		-Iinclude	# use "include" directory for header files
 
 # FORMATTING
