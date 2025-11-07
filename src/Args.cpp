@@ -9,7 +9,7 @@
 
 // Constructor takes command-line arguments and initializes member variables.	
 Args::Args(int argc, char** argv)
-	: n(0), width(DEF_WIDTH), height(DEF_HEIGHT)
+	: n_orig(0), width(DEF_WIDTH), height(DEF_HEIGHT)
 {
 	// Check 'n'
 	if (argc < 2)
@@ -18,16 +18,16 @@ Args::Args(int argc, char** argv)
 	if (!isInteger(argv[1]))
 		throw std::invalid_argument("Error: <n> must be a valid integer");
 
-	n = std::stoi(argv[1]);
-	n = std::abs(n); // Use absolute value of n, as z^-n = 1 is same as z^n = 1
+	n_orig = std::stoi(argv[1]);
+	int	n = std::abs(n_orig); // Use absolute value of n, as z^-n = 1 is same as z^n = 1
 	if (n == 0)
 		throw std::invalid_argument("Error: <n> must not be 0. No derivative exists.");
 
 	if (n < 3) // OK but boring (no fractals)
 	{
 		std::cerr	<< YELLOW << BOLD << "Warning: Low degree polynomial (n="
-					<< n << ")." << RESET <<std::endl;
-		std::cerr	<< YELLOW << "         Results will be non-fractal (straight lines/monochrome). Use n >= 3 for chaos."
+					<< n_orig << ")." << RESET <<std::endl;
+		std::cerr	<< YELLOW << "         Results will be non-fractal (straight lines/monochrome). Use |n| >= 3 for chaos."
 					<< RESET << std::endl;
 	}
 

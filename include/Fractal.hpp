@@ -30,6 +30,7 @@ class Fractal
 		void	saveImage(const std::string& filename) const;
 
 	private:
+		int		n_orig_;
 		int		n_;
 		int		width_;
 		int		height_;

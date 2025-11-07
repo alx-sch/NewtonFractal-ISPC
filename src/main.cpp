@@ -35,11 +35,11 @@ int	main (int argc, char **argv)
 		Args	args(argc, argv);
 
 		// Create Fractal object and generate the fractal data
-		Fractal	fractal(args.n, args.width, args.height);
+		Fractal	fractal(args.n_orig, args.width, args.height);
 		fractal.generate();
 
 		// Save fractal data to file
-		std::string	outputFilename = genOutputFilename(args.n);
+		std::string	outputFilename = genOutputFilename(args.n_orig);
 		fractal.saveImage(outputFilename);
 	}
 	catch(const std::exception& e)

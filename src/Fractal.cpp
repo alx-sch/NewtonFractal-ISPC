@@ -4,7 +4,7 @@
 #include "fractal_ispc.h"	// For ispc::calculateFractal (ISPC kernel)
 
 #include <iostream>
-#include <cmath>		// For M_PI, cos, sin, std::pow (brightness calculation)
+#include <cmath>		// For std::abs, M_PI, cos, sin, std::pow (brightness calculation)
 #include <iomanip>		// Formatte output debug prints
 #include <fstream>		// For file output
 #include <stdexcept>	// For std::runtime_error
@@ -16,8 +16,8 @@
  @param width	The target image width.
  @param height	The target image height.
 */
-Fractal::Fractal(int n, int width, int height) :
-	n_(n), width_(width), height_(height),
+Fractal::Fractal(int n_orig, int width, int height) :
+	n_orig_(n_orig), n_(std::abs(n_orig)), width_(width), height_(height),
 	tolerance_(DEF_TOLERANCE), max_iterations_(MAX_ITERS),
 	x_min_(DEF_VIEW_MIN_X), x_max_(DEF_VIEW_MAX_X),
 	y_min_(DEF_VIEW_MIN_Y), y_max_(DEF_VIEW_MAX_Y)
@@ -28,7 +28,7 @@ Fractal::Fractal(int n, int width, int height) :
 
 	DEBUG_PRINT("--- Fractal Object Created ---");
 	DEBUG_PRINT("  image size: " << width_ << " x " << height_);
-	DEBUG_PRINT("  fractal order (n): " << n_);
+	DEBUG_PRINT("  fractal order (n): " << n_orig_);
 	DEBUG_PRINT(std::fixed << std::setprecision(2) << 
 				"  real axis (x): [" << x_min_ << ", " << x_max_ << "]");
 	DEBUG_PRINT(std::fixed << std::setprecision(2) << 
@@ -187,7 +187,7 @@ void	Fractal::saveImage(const std::string& filename) const
 				<< RESET << BOLD << "'"
 				<< RESET << std::endl;
 	std::cout	<< "  image size: " << width_ << " x " << height_ << std::endl;
-	std::cout	<< "  fractal order (n): " << n_ << std::endl;
+	std::cout	<< "  fractal order (n): " << n_orig_ << std::endl;
 	std::cout	<< std::fixed << std::setprecision(2) <<
 				"  real axis (x): [" << x_min_ << ", " << x_max_ << "]" << std::endl;
 	std::cout	<< std::fixed << std::setprecision(2) <<

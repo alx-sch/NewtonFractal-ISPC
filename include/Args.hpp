@@ -15,7 +15,7 @@ class Args
 
 		Args(int argc, char** argv);
 
-		int			n;
+		int			n_orig;
 		int			width;
 		int			height;
 
