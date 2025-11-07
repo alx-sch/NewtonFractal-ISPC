@@ -25,7 +25,9 @@ This project generates visualizations of the **Newton Fractal** for the equation
 ## 🚀 Getting Started
 
 This project is configured to run instantly in a pre-built environment using a **Dev Container** (e.g., this repository's **Codespace**).    
-The simplest way to start is to launch the Codespace, as all dependencies are already configured.
+The simplest way to start is to launch the Codespace, as all dependencies are already configured.   
+
+**Note:** The initial Codepace setup may take a few moments while the container is built and dependencies are installed.
 
 ---
 
