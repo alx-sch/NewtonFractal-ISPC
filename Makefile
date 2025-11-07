@@ -71,7 +71,7 @@ $(OUT_DIR):
 
 # Rule for C++ objects / make them depend on ISPC header
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp $(ISPC_HEADER) | $(OBJS_DIR)
-	@echo "$(YELLOW)Compiling$(RESET) $<...$(RESET)"
+	@echo "$(YELLOW)Compiling$(RESET)  $<...$(RESET)"
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJS_DIR):
@@ -79,7 +79,8 @@ $(OBJS_DIR):
 
 # Rule for ISPC object (generates .o and .h files)
 $(ISPC_OBJ) $(ISPC_HEADER): $(ISPC_SRC) | $(OBJS_DIR)
-	@echo "$(YELLOW)Compiling$(RESET) $<...$(RESET)"
+	@echo "$(YELLOW)Compiling$(RESET)  $<...$(RESET)"
+	@echo "$(YELLOW)Generating$(RESET) $(ISPC_HEADER)...$(RESET)"
 	@$(ISPC) $(ISPC_FLAGS) $< -o $(ISPC_OBJ) -h $(ISPC_HEADER) -I$(HEADER_DIR)
 
 ## Build using sequential CPU execution (non-ISPC) ##
