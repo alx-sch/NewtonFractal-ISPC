@@ -24,14 +24,14 @@ This project generates visualizations of the **Newton Fractal** for the equation
 
 ## 🚀 Getting Started
 
-This project is configured to run instantly in a pre-built environment using a Devcontainer (e.g., **this repository's Codespace**).    
+This project is configured to run instantly in a pre-built environment using a **Dev Container** (e.g., this repository's **Codespace**).    
 The simplest way to start is to launch the Codespace, as all dependencies are already configured.
 
 ---
 
 ### ⚙️ Prerequisites and Setup
 
-If you choose to run the project locally outside of a Devcontainer, you must manually install the following dependencies:
+If you choose to run the project locally outside of a Dev Container, you must manually install the following dependencies:
 
 * **Make**: The standard build automation tool (the project uses a provided custom `Makefile` to coordinate C++/ISPC compilation)
 * **ISPC Compiler**: Required to generate optimized SIMD (Single Instruction, Multiple Data) code from the parallel kernel source.
@@ -83,7 +83,7 @@ If you plan on contributing or modifying the ISPC kernel code, please consider i
 
 **Mono Runtime:** If you are using Linux or macOS, the advanced features of the editor extension may require the Mono Runtime to be installed<sup><a href="#footnote1">[1]</a></sup>. This is separate from running the core `ispc` compiler, which should work immediately after Step 2.
 
-**➡️ DevContainer Users:** The ISPC extension and Mono Runtime are preinstalled in the Codespace environment.
+**➡️ Dev Container Users:** The ISPC extension and Mono Runtime are preinstalled in the Codespace environment.
 
 ---
 
