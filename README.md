@@ -1,6 +1,6 @@
 # Newton Fractal Visualization with ISPC
 
-This project generates a visualization of the **Newton Fractal** for the equation $z^n - 1 = 0$, utilizing the parallel processing power of Intel's **ISPC** to achieve a ~10-fold computation speedup!
+This project generates visualizations of the **Newton Fractal** for the equation $z^n - 1 = 0$, leveraging Intel's **ISPC** for parallel processing to achieve a ~10x speedup compared to a serial implementation.
 
 #### Visualization of the Newton Fractal with Different Exponents ($n$):
 | $n=5$ | $n=8$ | $n=13$ |
