@@ -149,7 +149,7 @@ Key parameters you can adjust:
 * **Convergence Tolerance:** Sets the threshold for how "close" a point must get to a root to be considered converged. Usually close to zero, but using higher values generate funky pictures!
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/alx-sch/NewtonFractal-ISPC/refs/heads/main/.assets/high_conv_tol.png" width="350" alt="high_conv_tol.png">
+  <img src="https://raw.githubusercontent.com/alx-sch/NewtonFractal-ISPC/refs/heads/main/.assets/high_conv_tol.png" width="300" alt="high_conv_tol.png">
   <br>
   Example of high convergence tolerance (=0.5) for <em>n=12</em>. The center of the circles are the roots.
 </div>
