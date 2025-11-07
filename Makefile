@@ -24,9 +24,9 @@ HEADER_DIR :=	include
 # target uses a SIMD instruction set supported by most modern CPUs
 ISPC :=			ispc
 ISPC_FLAGS :=	-O2 --target=avx2-i32x8
-ISPC_SRC :=		$(SRCS_DIR)/fractal.ispc
-ISPC_OBJ :=		$(OBJS_DIR)/fractal.o
-ISPC_HEADER :=  $(HEADER_DIR)/fractal.h
+ISPC_SRC :=		$(SRCS_DIR)/fractal_ispc.ispc
+ISPC_OBJ :=		$(OBJS_DIR)/fractal_ispc.o
+ISPC_HEADER :=  $(HEADER_DIR)/fractal_ispc.h
 
 # COMPILER
 CXX :=			c++

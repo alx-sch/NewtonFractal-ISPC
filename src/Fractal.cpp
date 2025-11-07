@@ -1,7 +1,7 @@
 #include "Fractal.hpp"
 #include "defines.hpp"		// DEBUG_PRINT, Default values
 #include "complexMath.hpp"	// For Complex operations
-#include "fractal.h"		// ISPC generated header
+#include "fractal_ispc.h"	// For ispc::calculateFractal (ISPC kernel)
 
 #include <iostream>
 #include <cmath>		// For M_PI, cos, sin, std::pow (brightness calculation)

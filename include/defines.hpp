@@ -1,8 +1,7 @@
 #ifndef DEFINES_HPP
 # define DEFINES_HPP
 
-# include "fractal.h" // for Complex struct from ISPC
-
+# include "fractal_ispc.h" // for Complex struct from ISPC
 using Complex = ispc::Complex;
 
 # define OUTPUT_DIR	"out"	// Directory to save output files
