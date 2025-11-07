@@ -91,37 +91,47 @@ If you plan on contributing or modifying the ISPC kernel code, please consider i
 
 The project uses a provided custom `Makefile` to handle the two-stage compilation: ISPC kernel first, then the C++ host, followed by linking.
 
-From the project root directory, run:
+1. **Build the executable:**   
+     ```bash
+     make
+     ```
 
-```bash
-make
-```
+2. **Run the executable:**   
+     The resulting executable (`newton_fractal`) accepts the degree of the polynomial ($n$) as a command-line argument.
+     
+     ```bash
+     # Usage: ./newton_fractal <degree_n> <optional_width> <optional_height>
+     
+     # Example 1: Generate a fractal for z^5 - 1 = 0 (5 roots)
+     ./newton_fractal 5
+     
+     # Example 2: Generate a fractal for z^8 - 1 = 0 with custom resolution
+     ./newton_fractal 8 1024 768
+     ```
 
-The resulting executable (`newton_fractal`) accepts the degree of the polynomial ($n$) as a command-line argument.
+     The resulting fractal image (`.ppm`) is saved in the `out/` folder.
 
-```bash
-# Usage: ./newton_fractal <degree_n> <optional_width> <optional_height>
-
-# Example 1: Generate a fractal for z^5 - 1 = 0 (5 roots)
-./newton_fractal 5
-
-# Example 2: Generate a fractal for z^8 - 1 = 0 with custom resolution
-./newton_fractal 8 1024 768
-```
-
-The resulting fractal image (`.ppm`) is saved in the `out` folder.
+3. **Convert the image:**      
+     To convert the raw .ppm file to a more common .png format, run:
+     
+     ```bash
+     make png
+     ```
+     
+     This uses `imagemagick` to convert the image and will delete the large original `.ppm` file.
 
 #### Additional Make Targets
 
-In addition to the default `make` command, the provided `Makefile` includes other useful convenience targets:
+In addition to the `make` commands above, the provided `Makefile` includes other useful convenience targets:
 
 | Command | Purpose |
 | :--- | :--- |
-| `make clean` | **Removes intermediate build files** (object files and compiled ISPC kernels). Keeps the main executable. |
+| `make clean` | **Removes intermediate build files**. Keeps the main executable. |
 | `make fclean` | **Deep cleaning**. Removes all built artifacts, including object files, the final executable, and the output files (`.ppm` or `.png` files). Resets the repository to a clean state. |
-| `make re` | **Full Rebuild**. Executes fclean followed by all. This ensures the project is completely cleaned and then rebuilt from scratch. |
-| `make png` | **Runs the Imagemagick conversion** on the raw output files (converts `.ppm` to `.png`). Automatically deletes large `.ppm` files upon successful conversion. |
-| `make debug` | Builds the executable with a flag that enables **verbose runtime logging** (e.g. iteration details). Redirect to a logfile via shell redirection: `newton_fractal 5 2> log.txt`.
+| `make re` | **Full Rebuild**. Ensures the project is completely cleaned and then rebuilt from scratch. |
+| `make seq` | Rebuilds the project using a **sequential (non-ISPC) C++** implementation for comparison. |
+| `make debug` | Rebuilds the executable with a flag that enables **verbose runtime logging**. Redirect to a logfile via shell redirection: `newton_fractal 5 2> log.txt`. |
+| `make debug_seq` | Rebuilds the program in **sequential mode** *and* with the **debug flag**. As debug prints are invoked during fractal generation in this mode, this allows you to follow the convergence of individual pixels. |
 
 --- 
 
