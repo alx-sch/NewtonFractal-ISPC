@@ -146,7 +146,7 @@ Key parameters you can adjust:
 * **Viewport:** Defines the area of the complex plane to render ($\text{MinRe}$, $\text{MaxIm}$, etc.). This is the primary way you **zoom in and out** or pan across the fractal.
 * **Maximum Iterations:** Controls the calculation depth and **level of detail**. Higher values will reveal more intricate patterns (especially at the edges) but will take longer to compute.
 * **Gamma:** Adjusts the **brightness and contrast** of the final image, allowing you to fine-tune the look and feel.
-* **Convergence Tolerance:** Sets the threshold for how "close" a point must get to a root to be considered converged. Usually close to zero, but using higher values generate funky pictures!
+* **Convergence Tolerance:** Sets the threshold for how "close" a point must get to a root to be considered converged. Usually close to zero, but using higher values generates funky pictures!
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/alx-sch/NewtonFractal-ISPC/refs/heads/main/.assets/high_conv_tol.png" width="300" alt="high_conv_tol.png">
