@@ -1,6 +1,6 @@
 #include "Args.hpp"
 #include "Fractal.hpp"
-#include "defines.hpp"	// color codes
+#include "defines.hpp"		// color codes
 
 #include <iostream>
 #include <iomanip>	// For formatting output

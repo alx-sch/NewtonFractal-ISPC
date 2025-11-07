@@ -1,9 +1,8 @@
-#ifndef NEWTON_FRACTAL_HPP
-# define NEWTON_FRACTAL_HPP
+#ifndef FRACTAL_HPP
+# define FRACTAL_HPP
 
-# include "defines.hpp"	// For Color struct
+# include "defines.hpp"	// For Color struct, Complex struct
 # include <vector>
-# include <complex>
 # include <string>
 # include <utility>	// For std::pair
 
@@ -25,11 +24,9 @@
 class Fractal
 {
 	public:
-		using Complex = std::complex<double>; // Short-hand for complex numbers
-
 		Fractal(int n, int width, int height);
 
-		void	generate();
+		void	generate();	// wrapper for generateSeq / generateISPC
 		void	saveImage(const std::string& filename) const;
 
 	private:
@@ -54,6 +51,10 @@ class Fractal
 		bool				newtonStep(Complex& z);
 		std::pair<int, int>	solvePixel(Complex z_start, int x, int y);
 		Color				calculateColor(int root_index, int iterations) const;
+
+		// called from wrapper generate()
+		void				generateSeq();
+		void				generateISPC();
 };
 
 #endif

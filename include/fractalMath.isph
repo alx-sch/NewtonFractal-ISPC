@@ -1,0 +1,61 @@
+// Defines the Complex structure and complex math operations for the ISPC kernel.
+
+// Define the Complex structure (must be shared between C++ and ISPC for data transfer); in ISCP there is no built-in complex type (e.g. #include <complex>) :/
+struct Complex
+{
+	double	real;
+	double	imag;
+};
+
+// --- Function Prototypes ---
+static Complex	complexSub(Complex a, Complex b);
+static Complex	complexMul(Complex a, Complex b);
+static Complex	complexPow(Complex z, uniform int n);
+
+// --- Helper Functions ---
+// Use 'static' -> private to compilation units
+
+// Complex number subtraction: a - b
+static Complex	complexSub(Complex a, Complex b)
+{
+	Complex	result;
+	result.real = a.real - b.real;
+	result.imag = a.imag - b.imag;
+
+	return result;
+}
+
+// Complex number multiplication: (a + bi) * (c + di) = (ac - bd) + (ad + bc)i
+// Note: This is required for complex exponentiation (z^n).
+static Complex	complexMul(Complex a, Complex b)
+{
+	Complex	result;
+	result.real = a.real * b.real - a.imag * b.imag;
+	result.imag = a.real * b.imag + a.imag * b.real;
+
+	return result;
+}
+
+// Calculates z^n (complex exponentiation).
+// Since n is 'uniform', this calculation can be done in the same way for all threads.
+static Complex	complexPow(Complex z, uniform int n)
+{
+	if (n == 0) // z^0 = 1
+	{
+		Complex	one;
+		one.real = 1.0;
+		one.imag = 0.0;
+		return one;
+	}
+	Complex	result;
+	result.real = 1.0; // Start with 1
+	result.imag = 0.0;
+
+	Complex	base = z;
+	for (uniform int i = 0; i < n; ++i)
+	{
+		result = complexMul(result, base);
+	}
+
+	return result;
+}
