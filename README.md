@@ -235,7 +235,7 @@ Before ISPC, the host C++ application (`generateSeq()` in `src/Fractal.cpp`) wou
 
 1. The programmer writes a single kernel function (in this case, the iterative Newton's method).
 2. ISPC automatically compiles this kernel to generate low-level SIMD instructions (like AVX or SSE) specifically for the target CPU architecture<sup><a href="#footnote7">[7]</a></sup>.
-3. At runtime, the ISPC system handles the parallel launch of the kernel, with each execution instance (called a "program instance") processing an entire SIMD vector of data simultaneously.
+3. At runtime, the ISPC launches multiple *program instances*, each processing one SIMD vector of data in parallel. Each of these program instances forms a **gang**, and each element in the SIMD vector is called a **lane**. For more details, see the [ISPC User Guide](https://ispc.github.io/ispc.html).
 
 This programming model is particularly effective for the Newton Fractal, since each pixel’s computation is independent — making it a perfect example of data parallelism ideal for SPMD/SIMD execution.
 
