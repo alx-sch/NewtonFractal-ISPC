@@ -143,15 +143,15 @@ The `define.hpp` header file is the project's main control panel for the visual 
 
 Key parameters you can adjust:
 
-* **Viewport:** Defines the area of the complex plane to render ($\text{MinRe}$, $\text{MaxIm}$, etc.). This is the primary way you **zoom in and out** or pan across the fractal.
-* **Maximum Iterations:** Controls the calculation depth and **level of detail**. Higher values will reveal more intricate patterns (especially at the edges) but will take longer to compute.
-* **Gamma:** Adjusts the **brightness and contrast** of the final image, allowing you to fine-tune the look and feel.
-* **Convergence Tolerance:** Sets the threshold for how "close" a point must get to a root to be considered converged. Usually close to zero, but using higher values generates funky pictures!
+* **Viewport: Camera Lens** - Defines the area of the complex plane to render ($\text{MinRe}$, $\text{MaxIm}$, etc.). This is the primary way you **zoom in and out** or pan across the fractal.
+* **Gamma: Filter** - Adjusts the **brightness and contrast** of the final image, allowing you to fine-tune the look and feel.
+* **Maximum Iterations: Detail** - Controls the calculation depth and **level of patience**. Higher values will reveal more intricate patterns (especially at the edges) but will take longer to compute.
+* **Convergence Tolerance: Accuracy** - Sets the threshold for how "close" a point must get to a root to be considered converged. Usually close to zero, but using higher values generates funky pictures!
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/alx-sch/NewtonFractal-ISPC/refs/heads/main/.assets/high_conv_tol.png" width="300" alt="high_conv_tol.png">
   <br>
-  Example of high convergence tolerance (=0.5) for <em>n=12</em>. The center of the circles are the roots.
+  Example of high convergence tolerance (=0.5) for <em>n=12</em>. The centers of the circles are the roots. This is not a fractal but a picture of the algorithm taking a massive shortcut, creating an abstract image that completely hides the infinitely complex fractal pattern.
 </div>
 
 ---
